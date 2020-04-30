@@ -17,6 +17,7 @@ class DummyActivityRepository extends ActivityRepository {
     for (int i = 0; i < 50; i++) {
       _serverData.add(generator.next());
     }
+    _serverData.sort((a,b) => a.startDate.compareTo(b.startDate));
   }
 
   @override
@@ -110,8 +111,8 @@ class _ActivityGenerator {
         'Central Perk',
         'MacLaren’s',
         'Moe’s Tavern',
-        'Monk\'s Café'
-            'Basement Taverna',
+        'Monk\'s Café',
+        'Basement Taverna',
       ];
 
       titles = [

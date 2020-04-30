@@ -1,43 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:teamgotest/provided_dependencies.dart';
+import 'package:teamgotest/routing.dart';
+import 'package:teamgotest/theming.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    ProvidedDependencies(
+      child: MainApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
+class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Go outside',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: ActivityFeed(),
+      theme: Theming.theme(),
+      initialRoute: Routes.HOME,
+      routes: Routes.generateRoutes(),
     );
   }
 }
-
-class ActivityFeed extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){},
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
-    );
-  }
-}
-
