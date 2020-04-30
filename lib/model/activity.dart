@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:teamgotest/model/conversation_message.dart';
 import 'package:teamgotest/model/user.dart';
 
 @immutable
-class Activity {
+class Activity extends Equatable {
   final String id;
   final String title;
   final String description;
@@ -57,4 +58,17 @@ class Activity {
         'invitedUsers: $invitedUsers, attendingUsers: $attendingUsers, '
         'lastMessages: $lastMessages}';
   }
+
+  @override
+  List<Object> get props => [
+        id,
+        title,
+        description,
+        author,
+        locationName,
+        startDate,
+        invitedUsers,
+        attendingUsers,
+        lastMessages,
+      ];
 }

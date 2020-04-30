@@ -6,6 +6,7 @@ import 'package:teamgotest/model/user.dart';
 import 'package:teamgotest/repository/activity_repository.dart';
 
 /// Simulates a server through an internal list
+/// This would normally talk to an API with dio, retrofit, etc
 class DummyActivityRepository extends ActivityRepository {
   List<Activity> _serverData;
   final int secondsOfDelay;
