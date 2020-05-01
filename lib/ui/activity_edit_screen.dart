@@ -65,6 +65,9 @@ class _ActivityEditScreenState extends State<ActivityEditScreen> {
     );
   }
 
+  /// Normally, this screen would be a bit more complex and it would have its
+  /// own bloc, that would possibly talk to other blocs if needed.
+  /// For now, this also works.
   Future<void> _updateActivity(BuildContext context) async {
     ActivityFeedBloc bloc = Provider.of<ActivityFeedBloc>(context, listen: false);
     SessionState session = Provider.of<SessionState>(context, listen: false);
