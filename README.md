@@ -23,4 +23,4 @@ This is a simple project, with no generated code. Hence, you should be able to c
   - TODO: Make routing be "provided" instead of static.
 
 
-I did spend some time on design. I hope you like it.
+I did spend some time on design. I hope you like it (I ran out of patience on the edit screen).
