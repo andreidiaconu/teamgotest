@@ -5,4 +5,5 @@ abstract class ActivityRepository {
   Future<void> createActivity(Activity activity);
   Future<void> updateActivity(Activity activity);
   Future<void> deleteActivity(String activityId);
+  Future<Activity> getActivity(String activityId);
 }

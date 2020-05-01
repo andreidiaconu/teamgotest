@@ -7,7 +7,7 @@ import 'package:teamgotest/repository/activity_repository.dart';
 
 /// Simplest form of bloc, which uses methods for input
 class ActivityFeedBloc {
-  Stream<ActivityFeedState> get feedStream => _stateStreamController.stream;
+  Stream<ActivityFeedState> get outputStream => _stateStreamController.stream;
 
   final ActivityRepository _activityRepository;
   ActivityFeedState _state = ActivityFeedState.initial();

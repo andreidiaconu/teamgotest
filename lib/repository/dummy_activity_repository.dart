@@ -55,6 +55,18 @@ class DummyActivityRepository extends ActivityRepository {
           "Server does not contain activity with id $activityId");
     }
   }
+
+  @override
+  Future<Activity> getActivity(String activityId) async {
+    await Future.delayed(Duration(seconds: secondsOfDelay));
+    int index = _serverData.indexWhere((element) => element.id == activityId);
+    if (index != -1) {
+      return _serverData[index];
+    } else {
+      throw ArgumentError(
+          "Server does not contain activity with id $activityId");
+    }
+  }
 }
 
 class _ActivityGenerator {

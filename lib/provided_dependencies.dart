@@ -14,22 +14,25 @@ class ProvidedDependencies extends StatelessWidget {
 
   // Would normally have a session Bloc that owns the current user
   final User currentUser = User(
-    id: "DGSAFGR324354DSD",
+    id: 'FJDUIKF358F8DJ29IF',
+    name: 'Joey',
     avatar:
-    "https://tinyfac.es/data/avatars/E0B4CAB3-F491-4322-BEF2-208B46748D4A-200w.jpeg",
-    name: "Chandler",
+    "https:\/\/tinyfac.es\/data\/avatars\/26CFEFB3-21C8-49FC-8C19-8E6A62B6D2E0-200w.jpeg",
   );
 
   ProvidedDependencies({Key key, this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Provider<SessionState>(
-      create: (_) => SessionState(currentUser: currentUser),
-      child: Provider<ActivityFeedBloc>(
-        create: (_) => ActivityFeedBloc(activityRepository: repository),
-        dispose: (_, bloc) => bloc.dispose(),
-        child: child,
+    return Provider<ActivityRepository>(
+      create: (_) => repository,
+      child: Provider<SessionState>(
+        create: (_) => SessionState(currentUser: currentUser),
+        child: Provider<ActivityFeedBloc>(
+          create: (_) => ActivityFeedBloc(activityRepository: repository),
+          dispose: (_, bloc) => bloc.dispose(),
+          child: child,
+        ),
       ),
     );
   }

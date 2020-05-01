@@ -10,7 +10,7 @@ class Routes {
 
   static Map<String, WidgetBuilder> generateRoutes() => {
     HOME: (_) => ActivityFeedScreen(),
-    ACTIVITY_DETAILS: (_) => ActivityDetailsScreen(),
+    ACTIVITY_DETAILS: (_) => ActivityDetailsScreenRouteArguments(),
     ACTIVITY_CREATE: (_) => ActivityDetailsScreen(),
     ACTIVITY_EDIT: (_) => ActivityDetailsScreen(),
   };

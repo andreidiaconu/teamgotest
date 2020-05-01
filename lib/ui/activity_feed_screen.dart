@@ -24,7 +24,7 @@ class _ActivityFeedScreenState extends State<ActivityFeedScreen> {
     ActivityFeedBloc bloc = Provider.of<ActivityFeedBloc>(context);
     return Scaffold(
       body: StreamBuilder<ActivityFeedState>(
-        stream: bloc.feedStream,
+        stream: bloc.outputStream,
         initialData: ActivityFeedState.initial(),
         builder: (context, snapshot) => ActivityFeed(
           data: snapshot.data.feed,
@@ -64,80 +64,85 @@ class ActivityFeedItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Stack(
-            children: [
-              SizedBox(
-                width: 48,
-                height: 48,
-                child: CircleAvatar(
-                  backgroundImage: NetworkImage(activity.author.avatar),
-                ),
-              ),
-              Positioned(
-                bottom: 0,
-                right: 0,
-                child: Container(
-                  decoration: ShapeDecoration(
-                      shape: CircleBorder(), color: Colors.black),
-                  child: Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Text("+${activity.invitedUsers.length}",
-                        style: Theme.of(context)
-                            .textTheme
-                            .caption
-                            .copyWith(color: Colors.white)),
+    return InkWell(
+      onTap: (){
+        Routes.openActivityDetails(context, activity.id);
+      },
+      child: Container(
+        padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Stack(
+              children: [
+                SizedBox(
+                  width: 48,
+                  height: 48,
+                  child: CircleAvatar(
+                    backgroundImage: NetworkImage(activity.author.avatar),
                   ),
                 ),
-              )
-            ],
-          ),
-          SizedBox(
-            width: 16,
-          ),
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    width: 0.0,
-                    color: Colors.grey,
-                  ),
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 22.0),
-                  Text(
-                    _overlineText(),
-                    style: Theme.of(context).textTheme.overline,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
-                    child: Text(
-                      activity.title,
-                      style: Theme.of(context).textTheme.subtitle1,
-                      maxLines: 1,
-                      softWrap: false,
-                      overflow: TextOverflow.fade,
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: Container(
+                    decoration: ShapeDecoration(
+                        shape: CircleBorder(), color: Colors.black),
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Text("+${activity.invitedUsers.length}",
+                          style: Theme.of(context)
+                              .textTheme
+                              .caption
+                              .copyWith(color: Colors.white)),
                     ),
                   ),
-                  Text(activity.description,
-                      style: Theme.of(context).textTheme.caption,
-                      maxLines: 2,
-                      softWrap: false,
-                      overflow: TextOverflow.ellipsis),
-                  SizedBox(height: 22.0),
-                ],
+                )
+              ],
+            ),
+            SizedBox(
+              width: 16,
+            ),
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      width: 0.0,
+                      color: Colors.grey.shade400,
+                    ),
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 22.0),
+                    Text(
+                      _overlineText(),
+                      style: Theme.of(context).textTheme.overline,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
+                      child: Text(
+                        activity.title,
+                        style: Theme.of(context).textTheme.subtitle1,
+                        maxLines: 1,
+                        softWrap: false,
+                        overflow: TextOverflow.fade,
+                      ),
+                    ),
+                    Text(activity.description,
+                        style: Theme.of(context).textTheme.caption,
+                        maxLines: 2,
+                        softWrap: false,
+                        overflow: TextOverflow.ellipsis),
+                    SizedBox(height: 22.0),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

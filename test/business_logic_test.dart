@@ -23,7 +23,7 @@ void main() {
       );
       when(repository.getActivities())
           .thenAnswer((_) => Future.value([activity]));
-      expectLater(bloc.feedStream,
+      expectLater(bloc.outputStream,
           emitsThrough(ActivityFeedState(feed: [activity], loading: false)));
       await bloc.loadActivityFeed();
       bloc.dispose();
@@ -36,7 +36,7 @@ void main() {
       );
       when(repository.getActivities())
           .thenAnswer((_) => Future.value([activity]));
-      expectLater(bloc.feedStream,
+      expectLater(bloc.outputStream,
           emitsThrough(ActivityFeedState(feed: [activity], loading: false)));
       await bloc.addNewActivity(Activity());
       bloc.dispose();
@@ -49,7 +49,7 @@ void main() {
       );
       when(repository.getActivities())
           .thenAnswer((_) => Future.value([activity]));
-      expectLater(bloc.feedStream,
+      expectLater(bloc.outputStream,
           emitsThrough(ActivityFeedState(feed: [activity], loading: false)));
       await bloc.updateActivity(Activity());
       bloc.dispose();
@@ -62,7 +62,7 @@ void main() {
       );
       when(repository.getActivities())
           .thenAnswer((_) => Future.value([activity]));
-      expectLater(bloc.feedStream,
+      expectLater(bloc.outputStream,
           emitsThrough(ActivityFeedState(feed: [activity], loading: false)));
       await bloc.deleteActivity("some id");
       bloc.dispose();
@@ -91,7 +91,7 @@ void main() {
         title: "an activity to test with",
       );
       when(repository.getActivities()).thenAnswer((_) => Future.value([]));
-      expectLater(bloc.feedStream,
+      expectLater(bloc.outputStream,
           emitsThrough(ActivityFeedState(feed: [activity], loading: true)));
       await bloc.addNewActivity(activity);
       bloc.dispose();
@@ -111,7 +111,7 @@ void main() {
         ]),
       );
       await bloc.loadActivityFeed();
-      expectLater(bloc.feedStream,
+      expectLater(bloc.outputStream,
           emitsThrough(ActivityFeedState(feed: [activity], loading: true)));
       await bloc.updateActivity(activity);
       bloc.dispose();
@@ -133,7 +133,7 @@ void main() {
       );
       await bloc.loadActivityFeed();
       expectLater(
-          bloc.feedStream,
+          bloc.outputStream,
           emitsThrough(
               ActivityFeedState(feed: [remainingActivity], loading: true)));
       await bloc.deleteActivity("activity id 1");
