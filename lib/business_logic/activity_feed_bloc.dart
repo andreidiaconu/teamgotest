@@ -26,7 +26,7 @@ class ActivityFeedBloc {
 
   Future<void> addNewActivity(Activity activity) async {
     final feed = List.of(_state.feed);
-    feed.add(activity);
+    feed.insert(0, activity);
     _updateState(_state.copyWith(feed: feed, loading: true)); // Eager UI update
     await _activityRepository.createActivity(activity);
     await loadActivityFeed();

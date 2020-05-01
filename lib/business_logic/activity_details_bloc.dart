@@ -21,7 +21,7 @@ class ActivityDetailsBloc {
     @required this.activityId,
   }) : this._activityRepository = activityRepository;
 
-  Future<void> init() async {
+  Future<void> refresh() async {
     _updateState(_state.copyWith(loading: true));
     Activity activity = await _activityRepository.getActivity(activityId);
     _updateState(_state.copyWith(activity: activity, loading: false));

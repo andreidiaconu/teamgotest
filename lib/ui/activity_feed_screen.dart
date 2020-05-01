@@ -32,7 +32,7 @@ class _ActivityFeedScreenState extends State<ActivityFeedScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pushNamed(Routes.ACTIVITY_CREATE);
+          Routes.openActivityCreate(context);
         },
         tooltip: 'Add Activity',
         child: Icon(Icons.add),

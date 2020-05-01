@@ -30,7 +30,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen> {
       activityRepository: repository,
       activityId: widget.activityId,
     );
-    bloc.init();
+    bloc.refresh();
     super.didChangeDependencies();
   }
 
@@ -38,19 +38,29 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen> {
   Widget build(BuildContext context) {
     return StreamBuilder<ActivityDetailsState>(
       stream: bloc.outputStream,
-      builder: (context, snapshot) => snapshot.data.loading
+      builder: (context, snapshot) => snapshot.data?.activity == null
           ? Scaffold(
               appBar: AppBar(),
               body: Center(child: CircularProgressIndicator()))
-          : ActivityDetailsScreenLoaded(activity: snapshot.data.activity),
+          : ActivityDetailsScreenLoaded(
+              activity: snapshot.data.activity,
+              loading: snapshot.data.loading,
+              onEdited: () {
+                bloc.refresh();
+              },
+            ),
     );
   }
 }
 
 class ActivityDetailsScreenLoaded extends StatelessWidget {
   final Activity activity;
+  final bool loading;
+  final VoidCallback onEdited;
 
-  const ActivityDetailsScreenLoaded({Key key, this.activity}) : super(key: key);
+  const ActivityDetailsScreenLoaded(
+      {Key key, this.activity, this.loading, this.onEdited})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -62,10 +72,19 @@ class ActivityDetailsScreenLoaded extends StatelessWidget {
           if (activity.author.id == session.currentUser.id)
             IconButton(
               icon: Icon(Icons.edit),
-              onPressed: () {
-                Routes.openActivityEdit(context, activity.id);
+              onPressed: () async {
+                // I don't like how I handled syncing.
+                // I would do things differently second time around.
+                await Routes.openActivityEdit(context, activity);
+                onEdited?.call();
               },
-            )
+            ),
+          if (loading) Padding(
+            padding: EdgeInsets.all(16.0),
+            child: AspectRatio(
+              aspectRatio: 1.0,
+                child: CircularProgressIndicator(backgroundColor: Colors.white,)),
+          ),
         ],
       ),
       body: Column(

@@ -29,7 +29,7 @@ class DummyActivityRepository extends ActivityRepository {
   @override
   Future<void> createActivity(Activity activity) async {
     await Future.delayed(Duration(seconds: secondsOfDelay));
-    _serverData.add(activity);
+    _serverData.insert(0, activity);
   }
 
   @override
