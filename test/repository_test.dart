@@ -3,7 +3,7 @@ import 'package:teamgotest/model/activity.dart';
 import 'package:teamgotest/repository/dummy_activity_repository.dart';
 
 void main() {
-  group('Dummy activity repository CRUD', () async {
+  group('Dummy activity repository CRUD', () {
     test('Dummy activity repo generates valid activities', () async {
       final repo = DummyActivityRepository(secondsOfDelay: 0);
       final activities = await repo.getActivities();
